@@ -97,12 +97,21 @@ async function fetchLatestPost(feedUrl) {
   }
 }
 
+export function sortByLatestPostFirst(blogs) {
+  return [...blogs].sort((a, b) => {
+    if (!a.latestPost && !b.latestPost) return 0;
+    if (!a.latestPost) return 1;
+    if (!b.latestPost) return -1;
+    return new Date(b.latestPost.date) - new Date(a.latestPost.date);
+  });
+}
+
 export async function handler(_event, _context) {
   const now = new Date();
 
   const results = await Promise.allSettled(BLOGS.map(blog => fetchLatestPost(blog.feedUrl)));
 
-  const blogs = BLOGS.map((blog, i) => {
+  const blogs = sortByLatestPostFirst(BLOGS.map((blog, i) => {
     const result = results[i];
     if (result.status === "rejected") {
       console.error(`Error fetching ${blog.name} (${blog.feedUrl}): ${result.reason}`);
@@ -112,7 +121,7 @@ export async function handler(_event, _context) {
       url: blog.url,
       latestPost: result.status === "fulfilled" ? result.value : null,
     };
-  });
+  }));
 
   const output = { generated: now.toISOString(), blogs };
 

@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { extractLatestPost, normalizeRssItem, normalizeAtomEntry } from "../src/handler.mjs";
+import { extractLatestPost, normalizeRssItem, normalizeAtomEntry, sortByLatestPostFirst } from "../src/handler.mjs";
 
 describe("normalizeRssItem", () => {
   it("normalizes a valid item", () => {
@@ -65,6 +65,34 @@ describe("normalizeAtomEntry", () => {
 
   it("returns null when link is missing", () => {
     expect(normalizeAtomEntry({ title: "T", updated: "2026-07-28T10:00:00.000Z" })).toBeNull();
+  });
+});
+
+describe("sortByLatestPostFirst", () => {
+  it("orders blogs by most recent post first", () => {
+    const blogs = [
+      { name: "Old", latestPost: { date: "2026-01-01T00:00:00.000Z" } },
+      { name: "New", latestPost: { date: "2026-07-01T00:00:00.000Z" } },
+      { name: "Mid", latestPost: { date: "2026-04-01T00:00:00.000Z" } },
+    ];
+    expect(sortByLatestPostFirst(blogs).map(b => b.name)).toEqual(["New", "Mid", "Old"]);
+  });
+
+  it("pushes blogs with no latest post to the end", () => {
+    const blogs = [
+      { name: "NoPost", latestPost: null },
+      { name: "HasPost", latestPost: { date: "2026-01-01T00:00:00.000Z" } },
+    ];
+    expect(sortByLatestPostFirst(blogs).map(b => b.name)).toEqual(["HasPost", "NoPost"]);
+  });
+
+  it("does not mutate the input array", () => {
+    const blogs = [
+      { name: "A", latestPost: { date: "2026-01-01T00:00:00.000Z" } },
+      { name: "B", latestPost: { date: "2026-07-01T00:00:00.000Z" } },
+    ];
+    sortByLatestPostFirst(blogs);
+    expect(blogs.map(b => b.name)).toEqual(["A", "B"]);
   });
 });
 
