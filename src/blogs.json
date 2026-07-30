@@ -1,0 +1,15 @@
+[
+  { "name": "Un Spicilège", "url": "https://blogz.zaclys.com/un-spicilege/", "feedUrl": "https://blogz.zaclys.com/un-spicilege/feed/" },
+  { "name": "Les lectures du Maki", "url": "https://les-lectures-du-maki.blogspot.com", "feedUrl": "https://les-lectures-du-maki.blogspot.com/feeds/posts/default" },
+  { "name": "De l'autre côté des livres", "url": "https://www.outrelivres.fr", "feedUrl": "https://www.outrelivres.fr/feed/" },
+  { "name": "Blog à part", "url": "https://erdorin.org/", "feedUrl": "https://erdorin.org/feed/" },
+  { "name": "Bibliothèque Fahrenheit 451", "url": "https://bibliothequefahrenheit.blogspot.com/", "feedUrl": "https://bibliothequefahrenheit.blogspot.com/feeds/posts/default" },
+  { "name": "Des Livres Rances", "url": "https://deslivresrances.blogspot.com/", "feedUrl": "https://deslivresrances.blogspot.com/feeds/posts/default" },
+  { "name": "Les Chroniques de FeyGirl", "url": "https://feygirl.home.blog/", "feedUrl": "https://feygirl.home.blog/feed/" },
+  { "name": "je lis, je blogue", "url": "https://jelisjeblogue.blogspot.com/", "feedUrl": "https://jelisjeblogue.blogspot.com/feeds/posts/default" },
+  { "name": "Nevertwhere", "url": "https://nevertwhere.blogspot.com", "feedUrl": "https://nevertwhere.blogspot.com/feeds/posts/default" },
+  { "name": "Un papillon dans la Lune", "url": "https://unpapillondanslalune.blogspot.com/", "feedUrl": "https://unpapillondanslalune.blogspot.com/feeds/posts/default" },
+  { "name": "Au pays des Cave Trolls", "url": "https://aupaysdescavetroll.fr/", "feedUrl": "https://aupaysdescavetroll.fr/feed/" },
+  { "name": "La bibliothèque de Gloubik", "url": "https://livres.gloubik.info", "feedUrl": "https://livres.gloubik.info/spip.php?page=backend" },
+  { "name": "Lorhkan", "url": "https://www.lorhkan.com/", "feedUrl": "https://www.lorhkan.com/feed/" }
+]
