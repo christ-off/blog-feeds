@@ -7,7 +7,7 @@
     "@aws-sdk/client-cloudfront": "^3.1091.0",
     "@aws-sdk/client-s3": "^3.1091.0",
     "@vitest/coverage-v8": "^4.1.10",
-    "fast-xml-parser": "^4.5.0",
+    "fast-xml-parser": "^5.7.0",
     "vitest": "^4.1.10"
   }
 }
