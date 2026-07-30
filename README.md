@@ -4,6 +4,8 @@ Fetches the latest post from each recommended blog's RSS/Atom feed daily.
 Outputs a single JSON file to your static site's S3 bucket, rendered client-side
 under "Je recommande ces blogs" on the Jekyll home page.
 
+[![Quality gate status](https://sonarcloud.io/api/project_badges/measure?project=christ-off_blog-feeds&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=christ-off_blog-feeds) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=christ-off_blog-feeds&metric=coverage)](https://sonarcloud.io/summary/new_code?id=christ-off_blog-feeds)
+
 ## Architecture
 
 ```
