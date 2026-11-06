@@ -31,6 +31,17 @@ function text(node) {
   return String(node);
 }
 
+const NAMED_ENTITIES = { amp: "&", lt: "<", gt: ">", quot: '"', apos: "'", nbsp: "\u00a0" };
+
+// Some feeds double-encode titles (e.g. "&amp;#39;"), leaving entities after XML parsing.
+export function decodeEntities(str) {
+  return str.replace(/&(?:#(\d+)|#x([\da-f]+)|([a-z]+));/gi, (m, dec, hex, name) => {
+    if (name) return NAMED_ENTITIES[name.toLowerCase()] ?? m;
+    const cp = dec ? parseInt(dec, 10) : parseInt(hex, 16);
+    return cp <= 0x10ffff ? String.fromCodePoint(cp) : m;
+  });
+}
+
 function asArray(node) {
   if (node == null) return [];
   return Array.isArray(node) ? node : [node];
@@ -45,7 +56,7 @@ function atomLink(entry) {
 }
 
 export function normalizeRssItem(item) {
-  const title = text(item.title).trim();
+  const title = decodeEntities(text(item.title)).trim();
   const link = text(item.link).trim();
   const date = new Date(text(item.pubDate ?? item["dc:date"]));
   if (!title || !link || Number.isNaN(date.getTime())) return null;
@@ -53,7 +64,7 @@ export function normalizeRssItem(item) {
 }
 
 export function normalizeAtomEntry(entry) {
-  const title = text(entry.title).trim();
+  const title = decodeEntities(text(entry.title)).trim();
   const link = atomLink(entry).trim();
   const date = new Date(text(entry.updated ?? entry.published));
   if (!title || !link || Number.isNaN(date.getTime())) return null;

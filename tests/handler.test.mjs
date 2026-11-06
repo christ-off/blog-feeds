@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { extractLatestPost, normalizeRssItem, normalizeAtomEntry, sortByLatestPostFirst } from "../src/handler.mjs";
+import { extractLatestPost, normalizeRssItem, decodeEntities, normalizeAtomEntry, sortByLatestPostFirst } from "../src/handler.mjs";
 
 describe("normalizeRssItem", () => {
   it("normalizes a valid item", () => {
@@ -141,5 +141,22 @@ describe("extractLatestPost", () => {
 
   it("returns null for malformed/unrecognized XML", () => {
     expect(extractLatestPost("<html><body>Not a feed</body></html>")).toBeNull();
+  });
+});
+
+describe("decodeEntities", () => {
+  it("decodes numeric, hex and named entities", () => {
+    expect(decodeEntities("D&#39;un &#8211; Dja&#239;z &amp; M&#xe9;thode")).toBe("D'un – Djaïz & Méthode");
+  });
+
+  it("leaves unknown entities untouched", () => {
+    expect(decodeEntities("a &foo; b")).toBe("a &foo; b");
+  });
+});
+
+describe("double-encoded titles", () => {
+  it("decodes entities left after XML parsing", () => {
+    const xml = `<rss><channel><item><title>La route &amp;#8211; Connie</title><link>http://x/1</link><pubDate>Sun, 13 Sep 2026 10:00:00 GMT</pubDate></item></channel></rss>`;
+    expect(extractLatestPost(xml).title).toBe("La route – Connie");
   });
 });
